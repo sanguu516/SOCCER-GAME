@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Layout from "../components/layout";
 async function createUser(

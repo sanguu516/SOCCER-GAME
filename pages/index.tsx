@@ -2,8 +2,6 @@ import Head from "next/head";
 import Image from "next/image";
 import Hero from "../components/home/hero";
 import Layout from "../components/layout";
-import { unstable_getServerSession } from "next-auth/next";
-import { useSession } from "next-auth/react";
 
 export default function Home() {
   return (

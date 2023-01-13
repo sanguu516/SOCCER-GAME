@@ -13,7 +13,7 @@ export default function Hero() {
           원하는 선수들을 영입하여 내가 감독이 되어보자
         </p>
         <div className="flex justify-center">
-          <Link legacyBehavior href="/projects">
+          <Link legacyBehavior href="/teamclub">
             <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
               구단 만들러 가기
             </button>

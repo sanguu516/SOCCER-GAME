@@ -2,11 +2,26 @@ import NextAuth from 'next-auth'
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaClient } from "@prisma/client";
 import { verifyPassword } from '../../../lib/auth'
+import GoogleProvider from 'next-auth/providers/google'
+
 
 let prisma = new PrismaClient();
-
+console.log(process.env.GOOGLE_ID)
 export default NextAuth({
+  pages: {
+    signIn: '/auth/signin',
+    signOut: '/auth/signout',
+    error: '/auth/error', // Error code passed in query string as ?error=
+    verifyRequest: '/auth/verify-request', // (used for check email message)
+    newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
+  }
+  ,
   providers: [
+    GoogleProvider({
+      client_id: "45421416122-d8smgucoipne586ntdumm7obb5f25sd5.apps.googleusercontent.com",
+      client_secret: "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"
+    }),
+
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Credentials",
@@ -43,5 +58,6 @@ export default NextAuth({
         return { name: user.name, email: user.email };
       }
     })
-  ]
+  ],
+
 })

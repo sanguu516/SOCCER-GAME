@@ -42,6 +42,9 @@ const Login: React.FC = (props) => {
     );
   }
 
+  async function handleGoogleSignin() {
+    signIn("google", { callbackUrl: "http://localhost:3000" });
+  }
   return (
     <Layout>
       <div className="container px-5 py-10 mx-auto w-2/3">
@@ -95,6 +98,14 @@ const Login: React.FC = (props) => {
               type="submit"
             >
               로그인
+            </button>
+          </div>
+          <div className="flex items-center justify-between mt-5">
+            <button
+              className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-3 w-full border border-gray-400 rounded shadow"
+              onClick={handleGoogleSignin}
+            >
+              <img src={"./google.png"} alt="d" style={{ width: "30px" }} />
             </button>
           </div>
         </form>

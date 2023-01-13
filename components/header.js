@@ -20,6 +20,9 @@ export default function Header() {
         sign in;
       </Link>;
     }
+  function guest() {
+    alert("로그인을 해주세요");
+  }
   return (
     <>
       <header className="text-gray-600 body-font">
@@ -46,18 +49,29 @@ export default function Header() {
             <Link legacyBehavior href="/">
               <a className="mr-5 hover:text-gray-900">홈</a>
             </Link>
-            <Link legacyBehavior href="/projects">
-              <a className="mr-5 hover:text-gray-900" >경기 일정</a>
-            </Link>
-            <Link legacyBehavior href="/404">
-              <a className="mr-5 hover:text-gray-900">내 팀 보기</a>
-            </Link>
-            <Link legacyBehavior href="/404">
-              <a className="mr-5 hover:text-gray-900">순위표</a>
-            </Link>
-            <Link legacyBehavior href="/">
-              <a className="mr-5 hover:text-gray-900">선수 영입</a>
-            </Link>
+            {status != "authenticated" ?
+              <>
+                <Link legacyBehavior href="/projects">
+                  <a className="mr-5 hover:text-gray-900" >경기 일정</a>
+                </Link>
+                <Link legacyBehavior href="/404">
+                  <a className="mr-5 hover:text-gray-900" >내 팀 보기</a>
+                </Link>
+                <Link legacyBehavior href="/404">
+                  <a className="mr-5 hover:text-gray-900">순위표</a>
+                </Link>
+                <Link legacyBehavior href="/">
+                  <a className="mr-5 hover:text-gray-900">선수 영입</a>
+                </Link>
+              </>
+              :
+              <>
+                <a className="mr-5 hover:text-gray-900" onClick={guest}>경기 일정</a>
+                <a className="mr-5 hover:text-gray-900" onClick={guest} >내 팀 보기</a>
+                <a className="mr-5 hover:text-gray-900" onClick={guest}>순위표</a>
+                <a className="mr-5 hover:text-gray-900" onClick={guest}>선수 영입</a>
+              </>
+            }
           </nav>
 
           {status === "authenticated" ? (
