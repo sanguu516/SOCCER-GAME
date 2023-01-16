@@ -3,18 +3,28 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
 import { wrap } from "popmotion";
-import { images } from "../public/image-data";
 import axios from "axios";
-// style
+import Swal from "sweetalert2";
+import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+
 export const Projects = ({ ClubKind }) => {
+  const { data: session, status } = useSession();
+  console.log("session", session);
   type team = {
     team: {
+      teamid: number;
       logo: string;
       name: "name";
+      id: string;
     };
+    group: string;
     length: number;
   };
   const [teaminfo, setTeamInfo] = useState<team[]>([]);
+  const router = useRouter();
 
   const options = {
     method: "GET",
@@ -89,8 +99,6 @@ export const Projects = ({ ClubKind }) => {
   const [back, setBack] = useState(false);
   //박스마다 이미지 적용
   const jsondata = wrap(0, teaminfo?.length, visible);
-  const imagepre = wrap(0, images[1].list.length, visible);
-  const imagelali = wrap(0, images[0].list.length, visible);
 
   const nextPlease = () => {
     setBack(false);
@@ -100,8 +108,44 @@ export const Projects = ({ ClubKind }) => {
     setBack(true);
     setVisible((prev) => (prev === 0 ? 0 : prev - 1));
   };
-  console.log(images);
-  function teamcreate() {}
+  async function teamcreate() {
+    const { value: nickname2 } = await Swal.fire({
+      title: "닉네임을 설정 해주세요!",
+      input: "text",
+      inputPlaceholder: "닉네임을 설정 해주세요",
+      inputAttributes: {
+        autocapitalize: "off",
+      },
+      showCancelButton: true,
+    });
+
+    if (nickname2) {
+      Swal.fire(`환영합니다!  ${nickname2}님`);
+      const teamdata = {
+        emailfk: session.user.email,
+        teamid: teaminfo[visible].team.id,
+        teamName: teaminfo[visible].team.name,
+        logo: teaminfo[visible].team.logo,
+        group: teaminfo[visible].group,
+        nickname: nickname2,
+      };
+      await fetch("/api/auth/teamapi", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ teamdata }),
+      })
+        .then((res) => {
+          // console.log("db 저장 완료>>>", res);
+          router.replace("/main");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      return alert("실패 하였습니다.");
+    }
+  }
+
   return (
     <Wrapper>
       <SlideWrap>

@@ -9,6 +9,7 @@ export default function Header() {
   const [menuToggle, setMenuToggle] = useState(false);
   const { data: session, status } = useSession();
   console.log("session", session);
+
   const router = useRouter();
   if (status === "authenticated")
 
@@ -131,7 +132,6 @@ export default function Header() {
             </Link>
           )
           }
-
         </div>
       </header>{" "}
     </>

@@ -12,9 +12,27 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement())
-  email     String   @unique
+  email     String   @unique 
   name      String?
   password  String
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
+  Team Team?
+  }
+model Team{
+  user User @relation(fields: [emailfk], references: [email])
+  emailfk String @unique
+  nickname String
+  teamid Int @id 
+  teamName String
+  logo String
+  group String
+}
+model Teamplayers{
+  teaminfoid String
+  id   Int      @id @default(autoincrement())
+  name String
+  photo String
+  height String
+  weight String
 }

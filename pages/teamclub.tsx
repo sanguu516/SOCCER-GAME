@@ -1,14 +1,11 @@
 import Layout from "../components/layout";
 import { Projects } from "./projects";
-import { useRouter } from "next/router";
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
 
 export default function TeamClub() {
   const [ClubKind, setClubKind] = useState<string>(null);
-
-  const router = useRouter();
 
   function movelink(a) {
     setClubKind(a);
