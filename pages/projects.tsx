@@ -9,10 +9,13 @@ import { PrismaClient } from "@prisma/client";
 // import { PrismaClient } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
+import * as teamActions from "../store/modules/team";
 
 export const Projects = ({ ClubKind }) => {
-  const { data: session, status } = useSession();
-  console.log("session", session);
+  const dispatch = useDispatch();
+
+  const { data: session } = useSession();
   type team = {
     team: {
       teamid: number;
@@ -35,6 +38,7 @@ export const Projects = ({ ClubKind }) => {
       "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
     },
   };
+
   useEffect(() => {
     axios
       .request(options)
@@ -135,8 +139,9 @@ export const Projects = ({ ClubKind }) => {
         body: JSON.stringify({ teamdata }),
       })
         .then((res) => {
+          dispatch(teamActions.getteam({ teamdata }));
           // console.log("db 저장 완료>>>", res);
-          router.replace("/main");
+          router.push("/");
         })
         .catch((err) => {
           console.log(err);

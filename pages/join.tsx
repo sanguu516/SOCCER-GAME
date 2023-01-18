@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Layout from "../components/layout";
+import Swal from "sweetalert2";
 
 async function createUser(
   name: string,
@@ -50,14 +51,12 @@ const Join: React.FC = (props) => {
         enteredEmail,
         enteredPassword
       );
-      console.log(result);
-      console.log("status", status);
+
       setFormStatus(`${result.message}`);
       setJoinCheck(true);
       okcheck(event);
       //   window.location.href = "/";
     } catch (error) {
-      console.log(error);
       setFormStatus(`회원가입 실패: ${error.message}`);
     }
   } // end of submitHandler function
@@ -67,9 +66,45 @@ const Join: React.FC = (props) => {
       router.replace("/login");
     }, 2000);
   }
+  if (joinCheck) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: "success",
+      title: `회원가입에 성공하였습니다! 
+      잠시후 로그인 페이지로 이동합니다.`,
+    });
+  } else if (formStatus === "회원가입 실패: 지원하지 않는 형식입니다.") {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+    Toast.fire({
+      icon: "error",
+      title: "회원가입에 실패하였습니다!",
+    });
+  }
+  console.log("formStatus>>>>>>>>>", formStatus);
   return (
     <Layout>
-      {joinCheck ? (
+      {/* {joinCheck ? (
         <div className="bg-indigo-900 text-center py-4 lg:px-4">
           <div
             className="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
@@ -98,7 +133,7 @@ const Join: React.FC = (props) => {
         </div>
       ) : (
         <></>
-      )}
+      )} */}
 
       <div className="container px-5 py-10 mx-auto w-2/3">
         <div className="text-center mb-12">

@@ -9,7 +9,6 @@ export default function TeamClub() {
 
   function movelink(a) {
     setClubKind(a);
-    console.log(ClubKind);
     setModal(true);
   }
 
@@ -62,7 +61,7 @@ export default function TeamClub() {
               <div className="bg-gray-100 p-6 rounded-lg">
                 <img
                   className="h-40 rounded w-full object-cover object-center mb-6"
-                  src="./premierleague.png"
+                  src="./Premier League.png"
                   alt="content"
                 />
                 <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">
@@ -86,7 +85,7 @@ export default function TeamClub() {
               >
                 <img
                   className="h-40 rounded w-full object-cover object-center mb-6"
-                  src="./lalega.png"
+                  src="./Primera División.png"
                   alt="content"
                 />
                 <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">

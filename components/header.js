@@ -3,12 +3,12 @@ import DarkMode from './darkmode';
 import React, { useState, useRef } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+import Swal from "sweetalert2";
 
 export default function Header() {
 
   const [menuToggle, setMenuToggle] = useState(false);
   const { data: session, status } = useSession();
-  console.log("session", session);
 
   const router = useRouter();
   if (status === "authenticated")
@@ -22,55 +22,48 @@ export default function Header() {
       </Link>;
     }
   function guest() {
-    alert("로그인을 해주세요");
+    Swal.fire(
+      '',
+      '로그인을 시도하세요.',
+      'question'
+    )
   }
+
+
+
   return (
     <>
       <header className="text-gray-600 body-font">
         <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-
           <Link legacyBehavior href="/">
             <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-              </svg>
-              <span className="ml-3 text-xl">상현이 포트폴리오</span>
+              <img src={"./cat.png"} style={{ width: "60px" }}></img>
+              <span className="ml-3 text-xl  font-black">상현이 포트폴리오</span>
             </a>
           </Link>
           <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-            <Link legacyBehavior href="/">
-              <a className="mr-5 hover:text-gray-900">홈</a>
-            </Link>
-            {status != "authenticated" ?
+
+            {status === "authenticated" ?
               <>
                 <Link legacyBehavior href="/projects">
-                  <a className="mr-5 hover:text-gray-900" >경기 일정</a>
+                  <a className="mr-5 hover:text-gray-300 font-semibolda" >경기 일정</a>
                 </Link>
                 <Link legacyBehavior href="/404">
-                  <a className="mr-5 hover:text-gray-900" >내 팀 보기</a>
+                  <a className="mr-5 hover:text-gray-300 font-semibolda" >내 팀 보기</a>
                 </Link>
                 <Link legacyBehavior href="/404">
-                  <a className="mr-5 hover:text-gray-900">순위표</a>
+                  <a className="mr-5 hover:text-gray-300 font-semibolda">순위표</a>
                 </Link>
                 <Link legacyBehavior href="/">
-                  <a className="mr-5 hover:text-gray-900">선수 영입</a>
+                  <a className="mr-5 hover:text-gray-300 font-semibolda">선수 영입</a>
                 </Link>
               </>
               :
               <>
-                <a className="mr-5 hover:text-gray-900" onClick={guest}>경기 일정</a>
-                <a className="mr-5 hover:text-gray-900" onClick={guest} >내 팀 보기</a>
-                <a className="mr-5 hover:text-gray-900" onClick={guest}>순위표</a>
-                <a className="mr-5 hover:text-gray-900" onClick={guest}>선수 영입</a>
+                <a className="mr-5 text-gray-300 font-semibolda" onClick={guest}>경기 일정</a>
+                <a className="mr-5 text-gray-300 font-semibolda" onClick={guest} >내 팀 보기</a>
+                <a className="mr-5 text-gray-300 font-semibolda" onClick={guest}>순위표</a>
+                <a className="mr-5 text-gray-300 font-semibolda" onClick={guest}>선수 영입</a>
               </>
             }
           </nav>
