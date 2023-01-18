@@ -39,7 +39,7 @@ export default function Home() {
   if (!session) {
     dispatch(teamActions.getteam({}));
   }
-  console.log("teamList>>>>", teamList);
+  // console.log("teamList>>>>", teamList);
   return (
     <div className="lottie anim">
       <Layout>

@@ -5,40 +5,62 @@ import { useSession } from "next-auth/react";
 import React, { useState, useEffect, useContext, Reducer } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
+import * as teamActions from "../store/modules/team";
+import Link from "next/link";
 
 export default function AboutMe() {
   const teamList = useSelector((state) => state?.team);
-  console.log("value>>>>>>>", teamList);
+  // console.log("value>>>>>>>", teamList);
+  const dispatch = useDispatch();
 
   type myinfo = {
-    player: object;
-    age: number;
-    height: string;
-    weight: string;
-    photo: string;
-    name: string;
-    id: number;
+    player: {
+      age: number;
+      height: string;
+      weight: string;
+      photo: string;
+      name: string;
+      id: number;
+    };
   };
   const [myinfo, setMyInfo] = useState<myinfo[]>();
   const options = {
     method: "GET",
     url: "https://api-football-v1.p.rapidapi.com/v3/players",
-    params: { team: teamList.teamid, season: "2022" },
+    params: { team: teamList.teamList.teamid, season: "2022" },
     headers: {
       "X-RapidAPI-Key": "246543b4c7mshe52ba7a01b5c204p1e5fd7jsn2a10340659f0",
       "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
     },
   };
   useEffect(() => {
-    // axios
-    //   .request(options)
-    //   .then(function (response) {
-    //     setMyInfo(response.data.response[0]);
-    //     console.log(response.data);
-    //   })
-    //   .catch(function (error) {
-    //     console.error(error);
-    //   });
+    if (teamList.teamplayerinfo) {
+      axios
+        .request(options)
+        .then(function (response) {
+          const res = response.data.response;
+          // console.log(res[0].statistics[0].games.position);
+          let teamplayer = res.map(function (item) {
+            // console.log(item);
+            let position = item.statistics[0].games.position;
+            return {
+              age: item.player.age,
+              height: item.player.height,
+              weight: item.player.weight,
+              photo: item.player.photo,
+              name: item.player.name,
+              id: item.player.id,
+              country: item.player.nationality,
+              position: position,
+            };
+          });
+          // console.log("response.data", teamplayer);
+          dispatch(teamActions.teamplayer({ teamplayer }));
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
   }, []);
 
   return (
@@ -61,23 +83,28 @@ export default function AboutMe() {
           </motion.div>
           <div className="flex flex-wrap -mx-2">
             <div className="px-2 w-1/2">
-              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 1.1 }}>
-                <div className="flex bg-gray-200 rounded-3xl w-full	 sm:py-14 justify-between align-center  sm:px-10 px-6 relative">
-                  <img
-                    alt="gallery"
-                    className=""
-                    src={teamList?.teamList?.logo}
-                  />
-                  <div className=" relative z-10 w-full flex align-center justify-center flex-col">
-                    <h2 className="text-3xl text-black font-medium title-font mb-2">
-                      팀 보러가기
-                    </h2>
-                    <p className="leading-relaxed text-3xl ml-1">
-                      {teamList?.teamList?.teamName}
-                    </p>
+              <Link legacyBehavior href="/teaminfo">
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 1.1 }}
+                >
+                  <div className="flex bg-gray-200 rounded-3xl w-full	 sm:py-14 justify-between align-center  sm:px-10 px-6 relative">
+                    <img
+                      alt="gallery"
+                      className=""
+                      src={teamList?.teamList?.logo}
+                    />
+                    <div className=" relative z-10 w-full flex align-center justify-center flex-col">
+                      <h2 className="text-3xl text-black font-medium title-font mb-2">
+                        팀 보러가기
+                      </h2>
+                      <p className="leading-relaxed text-3xl ml-1">
+                        {teamList?.teamList?.teamName}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </Link>
             </div>
             <div className="px-2 w-1/2 ">
               <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 1.1 }}>

@@ -2,16 +2,17 @@
 import Animation from "../animation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 
 
 export default function Hero() {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   function go() {
     if (session) {
-      Router.push("/teamclub");
+      router.push("/teamclub");
     } else
       Swal.fire(
         '',

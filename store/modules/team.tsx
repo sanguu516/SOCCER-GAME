@@ -1,6 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { teamList: {} }; // 초기 상태 정의
+const initialState = {
+  teamList: {},
+  teamplayerinfo: {
+    teamplayer: [
+      {
+        age: 0,
+        height: "",
+        weight: "",
+        photo: "",
+        name: "",
+        id: 0,
+        country: "",
+        position: "",
+      },
+    ],
+  },
+}; // 초기 상태 정의
 
 const teamSlice = createSlice({
   name: "team",
@@ -14,8 +30,12 @@ const teamSlice = createSlice({
       // console.log("action????????????", action.payload);
       state.teamList = JSON.parse(action.payload);
     },
+    teamplayer: (state, action) => {
+      // console.log("action????????????", action.payload);
+      state.teamplayerinfo = action.payload;
+    },
   },
 });
 
-export const { getteam, maingetteam } = teamSlice.actions; // 액션 생성함수
+export const { getteam, maingetteam, teamplayer } = teamSlice.actions; // 액션 생성함수
 export default teamSlice.reducer; // 리듀서
