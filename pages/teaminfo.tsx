@@ -10,7 +10,7 @@ export default function teaminfo() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const teamplayerinfo = useSelector((state) => state?.team);
 
-  console.log(teamplayerinfo.teamList.logo);
+  //   console.log(teamplayerinfo.teamList.logo);
   //   const team = teamplayerinfo.teamplayer.map(function (i) {
   //     console.log(i);
   //   });

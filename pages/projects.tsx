@@ -22,6 +22,7 @@ export const Projects = ({ ClubKind }) => {
       logo: string;
       name: "name";
       id: string;
+      league: string;
     };
     group: string;
     length: number;
@@ -44,7 +45,7 @@ export const Projects = ({ ClubKind }) => {
       .request(options)
       .then(function (response) {
         setTeamInfo(response?.data.response[0].league.standings[0]);
-        console.log(response.data);
+        // console.log(response.data);
       })
       .catch(function (error) {
         console.error(error);
@@ -132,14 +133,16 @@ export const Projects = ({ ClubKind }) => {
         logo: teaminfo[visible].team.logo,
         group: teaminfo[visible].group,
         nickname: nickname2,
+        league: ClubKind,
       };
+      console.log("teamdata", teamdata);
       await fetch("/api/auth/teamapi", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ teamdata }),
       })
         .then((res) => {
-          dispatch(teamActions.getteam({ teamdata }));
+          dispatch(teamActions.getteam(teamdata));
           // console.log("db 저장 완료>>>", res);
           router.push("/");
         })
@@ -147,7 +150,7 @@ export const Projects = ({ ClubKind }) => {
           console.log(err);
         });
     } else {
-      return alert("실패 하였습니다.");
+      return;
     }
   }
 

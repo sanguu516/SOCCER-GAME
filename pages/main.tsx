@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export default function AboutMe() {
   const teamList = useSelector((state) => state?.team);
-  // console.log("value>>>>>>>", teamList);
+
   const dispatch = useDispatch();
 
   type myinfo = {
@@ -34,6 +34,7 @@ export default function AboutMe() {
     },
   };
   useEffect(() => {
+    console.log("value>>>>>>>", teamList);
     if (teamList.teamplayerinfo) {
       axios
         .request(options)
@@ -107,24 +108,29 @@ export default function AboutMe() {
               </Link>
             </div>
             <div className="px-2 w-1/2 ">
-              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 1.1 }}>
-                <div
-                  className="flex w-full bg-gray-100 rounded-3xl bg-gray-100 sm:py-14  sm:px-10 px-6 relative "
-                  style={{
-                    backgroundImage: "url(./ranking.png)",
-                    backgroundSize: "contain",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    height: "260px",
-                  }}
+              <Link legacyBehavior href="/rank">
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 1.1 }}
                 >
-                  <div className="text-center relative w-full ">
-                    <h2 className="text-3xl text-gray-900 font-medium title-font mb-2">
-                      순위표
-                    </h2>
+                  <div
+                    className="flex w-full bg-gray-100 rounded-3xl bg-gray-100 sm:py-14  sm:px-10 px-6 relative "
+                    style={{
+                      backgroundImage: "url(./ranking.png)",
+                      backgroundSize: "contain",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center",
+                      height: "260px",
+                    }}
+                  >
+                    <div className="text-center relative w-full ">
+                      <h2 className="text-3xl text-gray-900 font-medium title-font mb-2">
+                        순위표
+                      </h2>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </Link>
             </div>
           </div>
         </div>

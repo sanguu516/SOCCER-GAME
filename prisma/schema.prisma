@@ -27,6 +27,7 @@ model Team{
   teamName String
   logo String
   group String
+  league String
 }
 model Teamplayers{
   teaminfoid String

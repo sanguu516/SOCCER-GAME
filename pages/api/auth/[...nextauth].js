@@ -8,7 +8,14 @@ import GoogleProvider from 'next-auth/providers/google'
 let prisma = new PrismaClient();
 console.log(process.env.GOOGLE_ID)
 export default NextAuth({
-
+  pages: {
+    signIn: '/auth/signin',
+    signOut: '/auth/signout',
+    error: '/auth/error', // Error code passed in query string as ?error=
+    verifyRequest: '/auth/verify-request', // (used for check email message)
+    newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
+  }
+  ,
   providers: [
     GoogleProvider({
       client_id: "45421416122-d8smgucoipne586ntdumm7obb5f25sd5.apps.googleusercontent.com",

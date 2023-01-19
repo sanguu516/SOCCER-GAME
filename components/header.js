@@ -28,7 +28,14 @@ export default function Header() {
       'question'
     )
   }
+  function logout() {
+    signOut();
+    router.replace("/");
 
+
+
+
+  }
 
 
   return (
@@ -45,13 +52,13 @@ export default function Header() {
 
             {status === "authenticated" ?
               <>
-                <Link legacyBehavior href="/projects">
+                <Link legacyBehavior href="/Calendar">
                   <a className="mr-5 hover:text-gray-300 font-semibolda" >경기 일정</a>
                 </Link>
-                <Link legacyBehavior href="/404">
+                <Link legacyBehavior href="/teaminfo">
                   <a className="mr-5 hover:text-gray-300 font-semibolda" >내 팀 보기</a>
                 </Link>
-                <Link legacyBehavior href="/404">
+                <Link legacyBehavior href="/rank">
                   <a className="mr-5 hover:text-gray-300 font-semibolda">순위표</a>
                 </Link>
                 <Link legacyBehavior href="/">
@@ -70,7 +77,7 @@ export default function Header() {
 
           {status === "authenticated" ? (
             <Link legacyBehavior href="/login" >
-              <button onClick={() => signOut()} className="inline-flex items-center bg-gray-100 border-0 py-1 mr-3 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+              <button onClick={logout} className="inline-flex items-center bg-gray-100 border-0 py-1 mr-3 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
                 로그아웃
                 <svg
                   fill="none"

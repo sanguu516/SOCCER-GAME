@@ -1,7 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  teamList: {},
+  teamList: {
+    emailfk: "",
+    teamid: 0,
+    teamName: "",
+    logo: "",
+    group: "",
+    nickname: "",
+    league: "",
+  },
   teamplayerinfo: {
     teamplayer: [
       {
@@ -23,8 +31,8 @@ const teamSlice = createSlice({
   initialState,
   reducers: {
     getteam: (state, action) => {
-      // console.log("action????????????", action.payload);
-      state.teamList = action.payload.teamdata;
+      console.log("action????????????", action.payload);
+      state.teamList = action.payload;
     },
     maingetteam: (state, action) => {
       // console.log("action????????????", action.payload);

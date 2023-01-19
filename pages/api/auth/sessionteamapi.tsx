@@ -16,6 +16,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       teamName: true,
       logo: true,
       group: true,
+      league: true,
+      emailfk: true,
     },
   });
 

@@ -37,7 +37,7 @@ export default function Home() {
   }, [session]);
 
   if (!session) {
-    dispatch(teamActions.getteam({}));
+    // dispatch(teamActions.getteam({}));
   }
   // console.log("teamList>>>>", teamList);
   return (
