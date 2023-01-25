@@ -6,7 +6,6 @@ import GoogleProvider from 'next-auth/providers/google'
 
 
 let prisma = new PrismaClient();
-console.log(process.env.GOOGLE_ID)
 export default NextAuth({
   pages: {
     signIn: '/auth/signin',

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { PURGE } from "redux-persist";
 
 const initialState = {
   teamList: {
@@ -31,7 +32,6 @@ const teamSlice = createSlice({
   initialState,
   reducers: {
     getteam: (state, action) => {
-      console.log("action????????????", action.payload);
       state.teamList = action.payload;
     },
     maingetteam: (state, action) => {
@@ -42,6 +42,9 @@ const teamSlice = createSlice({
       // console.log("action????????????", action.payload);
       state.teamplayerinfo = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(PURGE, () => initialState);
   },
 });
 

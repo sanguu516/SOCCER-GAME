@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { useDispatch, useSelector } from "react-redux";
 
 import teamReducer from "./modules/team";
 
@@ -16,10 +17,11 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
-const store = configureStore({
+export const store = configureStore({
   reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== "production",
   middleware: [thunk],
 });
 
-export default store;
+export const useAppDispatch = () => useDispatch();
+export const useAppSelector = useSelector;

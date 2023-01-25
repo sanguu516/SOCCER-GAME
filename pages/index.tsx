@@ -14,8 +14,7 @@ export default function Home() {
   const teamList = useSelector((state) => state?.team);
 
   useEffect(() => {
-    console.log(session);
-    if (session) {
+    if (session && teamList.teamList) {
       fetch("/api/auth/sessionteamapi", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -34,11 +33,8 @@ export default function Home() {
           console.log(err);
         });
     }
-  }, [session]);
+  }, []);
 
-  if (!session) {
-    // dispatch(teamActions.getteam({}));
-  }
   // console.log("teamList>>>>", teamList);
   return (
     <div className="lottie anim">
@@ -51,14 +47,14 @@ export default function Home() {
             rel="stylesheet"
           />
         </Head>
-        {teamList.teamList === undefined || !teamList.teamList?.logo ? (
+        {(teamList.teamList || teamList.teamList?.logo) && session ? (
+          <Main />
+        ) : (
           <section className="flex min-h-screen flex-col items-center justify-center text-gray-600 body-font">
             <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
               <Hero />
             </div>
           </section>
-        ) : (
-          <Main />
         )}
       </Layout>
     </div>

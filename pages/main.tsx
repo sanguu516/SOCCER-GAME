@@ -10,6 +10,7 @@ import Link from "next/link";
 
 export default function AboutMe() {
   const teamList = useSelector((state) => state?.team);
+  const { data: session, status } = useSession();
 
   const dispatch = useDispatch();
 
@@ -34,7 +35,6 @@ export default function AboutMe() {
     },
   };
   useEffect(() => {
-    console.log("value>>>>>>>", teamList);
     if (teamList.teamplayerinfo) {
       axios
         .request(options)

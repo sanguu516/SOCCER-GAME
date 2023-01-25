@@ -101,7 +101,6 @@ const Join: React.FC = (props) => {
       title: "회원가입에 실패하였습니다!",
     });
   }
-  console.log("formStatus>>>>>>>>>", formStatus);
   return (
     <Layout>
       {/* {joinCheck ? (

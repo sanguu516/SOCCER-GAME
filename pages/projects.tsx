@@ -20,7 +20,7 @@ export const Projects = ({ ClubKind }) => {
     team: {
       teamid: number;
       logo: string;
-      name: "name";
+      name: string;
       id: string;
       league: string;
     };
@@ -51,7 +51,6 @@ export const Projects = ({ ClubKind }) => {
         console.error(error);
       });
   }, []);
-  console.log("visible>>>>>>>>", teaminfo);
 
   const Wrapper = styled(motion.div)`
     display: flex;
@@ -135,7 +134,6 @@ export const Projects = ({ ClubKind }) => {
         nickname: nickname2,
         league: ClubKind,
       };
-      console.log("teamdata", teamdata);
       await fetch("/api/auth/teamapi", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

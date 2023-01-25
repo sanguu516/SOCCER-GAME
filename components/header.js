@@ -4,6 +4,8 @@ import React, { useState, useRef } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
+import * as teamActions from "../store/modules/team";
+import { persistor } from "../pages/_app";
 
 export default function Header() {
 
@@ -29,15 +31,14 @@ export default function Header() {
     )
   }
   function logout() {
-    signOut();
-    router.replace("/");
-
-
-
-
   }
 
+  const purge = async () => {
+    await persistor.purge(); // persistStore의 데이터 전부 날림
+    await signOut({ callbackUrl: 'http://localhost:3000' })
+    // location.reload();
 
+  }
   return (
     <>
       <header className="text-gray-600 body-font">
@@ -77,7 +78,9 @@ export default function Header() {
 
           {status === "authenticated" ? (
             <Link legacyBehavior href="/login" >
-              <button onClick={logout} className="inline-flex items-center bg-gray-100 border-0 py-1 mr-3 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+              <button onClick={async () => purge()
+              }
+                className="inline-flex items-center bg-gray-100 border-0 py-1 mr-3 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
                 로그아웃
                 <svg
                   fill="none"
