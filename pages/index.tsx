@@ -14,7 +14,7 @@ export default function Home() {
   const teamList = useSelector((state) => state?.team);
 
   useEffect(() => {
-    if (session && teamList.teamList) {
+    if (session) {
       fetch("/api/auth/sessionteamapi", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,7 +35,7 @@ export default function Home() {
     }
   }, []);
 
-  // console.log("teamList>>>>", teamList);
+  console.log("teamList>>>>", teamList);
   return (
     <div className="lottie anim">
       <Layout>
@@ -47,7 +47,7 @@ export default function Home() {
             rel="stylesheet"
           />
         </Head>
-        {(teamList.teamList || teamList.teamList?.logo) && session ? (
+        {teamList.teamList.logo && session ? (
           <Main />
         ) : (
           <section className="flex min-h-screen flex-col items-center justify-center text-gray-600 body-font">
