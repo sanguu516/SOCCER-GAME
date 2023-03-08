@@ -85,6 +85,7 @@ const Login: React.FC = (props) => {
               id="password"
               type="password"
               required
+              placeholder="비밀번호"
               ref={passwordInputRef}
             />
             <p className="text-red-500 text-xs italic">

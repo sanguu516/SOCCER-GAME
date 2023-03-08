@@ -53,7 +53,7 @@ export default function Header() {
 
             {status === "authenticated" ?
               <>
-                <Link legacyBehavior href="/Calendar">
+                <Link legacyBehavior href="/calendar">
                   <a className="mr-5 hover:text-gray-300 font-semibolda" >경기 일정</a>
                 </Link>
                 <Link legacyBehavior href="/teaminfo">
@@ -62,7 +62,7 @@ export default function Header() {
                 <Link legacyBehavior href="/rank">
                   <a className="mr-5 hover:text-gray-300 font-semibolda">순위표</a>
                 </Link>
-                <Link legacyBehavior href="/">
+                <Link legacyBehavior href="/player">
                   <a className="mr-5 hover:text-gray-300 font-semibolda">선수 영입</a>
                 </Link>
               </>

@@ -37,6 +37,21 @@ export default function calendar() {
       "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
     },
   };
+
+  fetch("https://v3.football.api-sports.io/players?id=276&season=2019", {
+    method: "GET",
+    headers: {
+      "x-rapidapi-host": "v3.football.api-sports.io",
+      "x-rapidapi-key": "XxXxXxXxXxXxXxXxXxXxXxXx",
+    },
+  })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     axios
